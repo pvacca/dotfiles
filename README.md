@@ -2,7 +2,7 @@
 ### Or should I say, "dotPhiles"? ^_^
 Everybody needs dem dotfilez
 
-vimrc
-psqlrc
+1.vimrc
+1.psqlrc
 
-do you really need anything else?
+Is there really anything else?
