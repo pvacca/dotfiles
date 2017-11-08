@@ -2,7 +2,7 @@ filetype plugin indent on
 set nocompatible    " not compatible with legacy vi
 set encoding=utf-8
 
-set pastetoggle=<F3>			" paste prevents autotabs when pasting. Useful toggle
+set pastetoggle=<F6>			" paste prevents autotabs when pasting. Useful toggle
 set report=0                    " always display count of lines 
                                 " yanked or deleted
 set showcmd                     " display incomplete commands
@@ -26,3 +26,9 @@ set smartcase                   " ... unless they contain at least one capital l
 " from CoderWall -  w!! writes as sudo
 cmap w!! w !sudo tee % >/dev/null
 
+"" it was a pretty dream, but it doesn't seem to work on iTerm
+" Provide hjkl movements in Insert mode via the <Alt> modifier key
+" inoremap <C-h> <C-o>h
+" inoremap <C-j> <C-o>j
+" inoremap <C-k> <C-o>k
+" inoremap <C-l> <C-o>l
