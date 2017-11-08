@@ -12,11 +12,6 @@ if !exists("g:syntax_on")
     syntax enable
 endif
 
-" autodetect file types
-filetype on
-filetype plugin on
-filetype indent on
-
 "" whitespace stuff
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 set nowrap 		" do not wrap lines
