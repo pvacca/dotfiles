@@ -1,0 +1,11 @@
+alias ls='ls -x -G'
+alias grep='grep -G'
+alias ll='ls -al'
+
+alias dops='docker ps -a'
+alias doru='docker run'
+alias dolo='docker logs'
+alias dorm='docker rm'
+alias dospf='docker system prune -f'
+alias doi='docker images'
+alias dov='docker volumes'
