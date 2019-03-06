@@ -1,4 +1,5 @@
 alias ls='ls -x -G'
+alias l='ls -xA -G'
 alias grep='grep -G'
 alias ll='ls -Olap'
 
