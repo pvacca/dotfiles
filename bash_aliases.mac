@@ -1,6 +1,7 @@
 alias ls='ls -x -G'
 alias l='ls -Ap'
-alias ll='ls -Olap' 
+alias ll='ls -Olp'
+alias lll='ls -Olap'
 alias grep='grep -G'
 
 alias dops='docker ps -a'
@@ -10,3 +11,5 @@ alias dorm='docker rm'
 alias dospf='docker system prune -f'
 alias doi='docker images'
 alias dov='docker volumes'
+
+# alias cat lolcat
