@@ -7,4 +7,6 @@ if [ -f "$HOME/.bash_aliases" ] ; then
 fi
 
 export PS1="\[\e[36;40m\]\u@\h:\[\e[36;1m\]\w\[\e[34;1m\]\$\[\e[0m\] "
+export LSCOLORS=Exfxcxdxbxegedabagacad
 
+export EDITOR=vim
