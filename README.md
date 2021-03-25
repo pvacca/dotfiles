@@ -1,5 +1,7 @@
 ## dotfiles by Phil
-### Or should I say, "dotPhiles"? ^_^
+
+### Or should I say, "dot-Philes"? `^_^`
+
 Got ya dots
 
 * profile
