@@ -11,3 +11,8 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 
 export EDITOR=vim
 export PGSERVICE=phil
+
+aws_env () {
+    jq -r '.Credentials | ["export", "AWS_ACCESS_KEY_ID="+.AccessKeyId, "AWS_SECRET_ACCESS_KEY="+.SecretAccessKey, "AWS_SESSION_TOKEN="+.SessionToken] |join(" ")'
+}
+export -f aws_env
