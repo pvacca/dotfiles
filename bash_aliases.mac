@@ -13,3 +13,4 @@ alias doi='docker images'
 alias dov='docker volumes'
 
 # alias cat lolcat
+alias runpy='pipenv run python3'
