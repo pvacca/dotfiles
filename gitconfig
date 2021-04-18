@@ -1,0 +1,8 @@
+[user]
+	email = pvacca@users.noreply.github.com
+	name = Phil Vacca
+[init]
+	defaultBranch = main
+[color]
+	diff = always
+
