@@ -7,11 +7,22 @@ export LSCOLORS
 EDITOR=vim
 export EDITOR
 
-# bind arrow keys to search
-^[[A' up-line-or-search # up arrow bindkey
-^[[B' down-line-or-search # down arrow 
+## Improved arrow key search with history
+autoload -Uz up-line-or-beginning-search
+autoload -Uz down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
 
-# Aliases
+## History
+HISTSIZE=100000000
+SAVEHIST=100000000
+setopt INC_APPEND_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS
+
+## Aliases
 
 alias ls='ls -x -G'
 alias l='ls -Ap'
@@ -21,6 +32,8 @@ alias grep='grep -G'
 
 alias pipup='python3 -m pip install -U pip && pip3 install -U wheel setuptools'
 alias runpy='pipenv run python3'
+
+alias brewup='brew update && brew outdated'
 
 alias dops='docker ps -a'
 alias doru='docker run'
