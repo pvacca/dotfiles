@@ -5,4 +5,7 @@
 	defaultBranch = main
 [color]
 	diff = always
-
+[core]
+    excludesfile = ~/.gitignore
+[commit]
+    gpgsign = true

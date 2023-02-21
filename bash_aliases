@@ -12,6 +12,8 @@ alias dospf='docker system prune -f'
 alias doi='docker images'
 alias dov='docker volumes'
 
+alias brewup='brew update && brew outdated'
+
 # alias runpy='pipenv run python3'
 
 # alias cat lolcat
