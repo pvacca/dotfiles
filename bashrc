@@ -14,6 +14,8 @@ export PGSERVICE=phil
 
 export GPG_TTY="$(tty)"
 
+export SLACK_DEVELOPER_MENU=true
+
 # aws_env () {
 #     jq -r '.Credentials | ["export", "AWS_ACCESS_KEY_ID="+.AccessKeyId, "AWS_SECRET_ACCESS_KEY="+.SecretAccessKey, "AWS_SESSION_TOKEN="+.SessionToken] |join(" ")'
 # }
