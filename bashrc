@@ -15,6 +15,9 @@ export PGSERVICE=phil
 export GPG_TTY="$(tty)"
 
 export SLACK_DEVELOPER_MENU=true
+# # Slack cmd+opt+i
+###  localStorage.setItem("localConfig_v2",localStorage.getItem("localConfig_v2").replace(/\"is_unified_user_client_enabled\":true/g,'\"is_unified_user_client_enabled\":false'))
+
 
 # aws_env () {
 #     jq -r '.Credentials | ["export", "AWS_ACCESS_KEY_ID="+.AccessKeyId, "AWS_SECRET_ACCESS_KEY="+.SecretAccessKey, "AWS_SESSION_TOKEN="+.SessionToken] |join(" ")'
