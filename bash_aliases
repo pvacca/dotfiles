@@ -4,6 +4,9 @@ alias ll='ls -Olp'
 alias lll='ls -Olap'
 alias grep='grep -G'
 
+alias gl='git log --pretty=oneline'
+alias pushup='git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"'
+
 alias dops='docker ps -a'
 alias doru='docker run'
 alias dolo='docker logs'
