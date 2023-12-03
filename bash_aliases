@@ -13,10 +13,12 @@ alias dolo='docker logs'
 alias dorm='docker rm'
 alias dospf='docker system prune -f'
 alias doi='docker images'
-alias dov='docker volumes'
+alias dov='docker volume'
+alias dovs='docker volume ls'
 
 alias brewup='brew update && brew outdated'
 
+alias pipup='python -m pip install -U pip && pip install -U setuptools wheel six pipenv && pip list --outdated'
 # alias runpy='pipenv run python3'
 
 # alias cat lolcat
