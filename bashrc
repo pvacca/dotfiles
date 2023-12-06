@@ -26,14 +26,5 @@ export SLACK_DEVELOPER_MENU=true
 
 export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
-g-scp () { gcloud compute --quiet scp --compress $@ --tunnel-through-iap ; }
-export -f g-scp
+. $HOME/.g_funcs
 
-g-ssh () { gcloud compute --quiet ssh $@ --tunnel-through-iap ; }
-export -f g-ssh
-
-function g-zone { gcloud compute --quiet instances list --format 'csv[no-heading](zone)' --filter "name=('$1')" ; }
-export -f g-zone
-
-function zone-me { CLOUDSDK_COMPUTE_ZONE="$(g-zone "$1")" ; export CLOUDSDK_COMPUTE_ZONE ; }
-export -f zone-me

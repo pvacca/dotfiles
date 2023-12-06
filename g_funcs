@@ -1,0 +1,21 @@
+function g-scp { gcloud compute --quiet scp --compress $@ --tunnel-through-iap ; }
+export -f g-scp
+
+function g-ssh { gcloud compute --quiet ssh $@ --tunnel-through-iap ; }
+export -f g-ssh
+
+function g-zone { gcloud compute --quiet instances list --format 'csv[no-heading](zone)' --filter "name=('$1')" ; }
+export -f g-zone
+
+function zone-me { CLOUDSDK_COMPUTE_ZONE="$(g-zone "$1")" ; export CLOUDSDK_COMPUTE_ZONE ; echo "$CLOUDSDK_COMPUTE_ZONE" ; }
+export -f zone-me
+
+function g-act { gcloud config configurations activate "$1" ; }
+export -f g-act
+
+function g-up { gcloud components update ; }
+export -f g-up
+
+function g-list { gcloud config configurations list ; }
+export -f g-list
+
