@@ -1,21 +1,43 @@
-function g-scp { gcloud compute --quiet scp --compress $@ --tunnel-through-iap ; }
-export -f g-scp
-
-function g-ssh { gcloud compute --quiet ssh $@ --tunnel-through-iap ; }
-export -f g-ssh
-
-function g-zone { gcloud compute --quiet instances list --format 'csv[no-heading](zone)' --filter "name=('$1')" ; }
-export -f g-zone
-
-function zone-me { CLOUDSDK_COMPUTE_ZONE="$(g-zone "$1")" ; export CLOUDSDK_COMPUTE_ZONE ; echo "$CLOUDSDK_COMPUTE_ZONE" ; }
-export -f zone-me
-
-function g-act { gcloud config configurations activate "$1" ; }
-export -f g-act
-
 function g-up { gcloud components update ; }
 export -f g-up
 
 function g-list { gcloud config configurations list ; }
 export -f g-list
 
+function g-act { gcloud config configurations activate "$1" ; }
+export -f g-act
+
+# zone from machine name
+function g-zone { gcloud compute --quiet instances list --format 'csv[no-heading](zone)' --filter "name=('$1')" ; }
+export -f g-zone
+
+# export zone shortcut
+function zone-me { CLOUDSDK_COMPUTE_ZONE="$(g-zone "$1")" ; export CLOUDSDK_COMPUTE_ZONE ; echo "$CLOUDSDK_COMPUTE_ZONE" ; }
+export -f zone-me
+
+# ssh/scp
+function g-ssh { gcloud compute --quiet ssh "$@" --tunnel-through-iap ; }
+export -f g-ssh
+
+function g-scp { gcloud compute --quiet scp --compress "$@" --tunnel-through-iap ; }
+export -f g-scp
+
+# apply chef
+function g-chef {
+  local machine="$1"
+  shift
+
+  g-ssh "$machine" --command "sudo apply-chef $@" ; 
+}
+export -f g-chef
+
+# iap for vault
+function g-vault {
+  export VAULT_ADDR=https://iap.banno-internal.com:8200
+
+  local machine="$1"
+  shift
+
+  gcloud compute --quiet start-iap-tunnel "$machine" 443 \
+   --local-host-port=iap.banno-internal.com:8200
+}
