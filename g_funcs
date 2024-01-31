@@ -33,7 +33,7 @@ export -f g-chef
 
 # iap for vault
 function g-vault {
-  export VAULT_ADDR=https://iap.banno-internal.com:8200
+  echo "VAULT_ADDR=https://iap.banno-internal.com:8200"
 
   local machine="$1"
   shift
@@ -41,3 +41,9 @@ function g-vault {
   gcloud compute --quiet start-iap-tunnel "$machine" 443 \
    --local-host-port=iap.banno-internal.com:8200
 }
+export -f g-vault
+
+# GKE
+function gke-creds { gcloud container clusters get-credentials gke ; }
+export -f gke-creds
+
