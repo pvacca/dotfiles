@@ -21,6 +21,8 @@ alias brewup='brew update && brew outdated'
 alias pipup='python -m pip install -U pip && pip install -U setuptools wheel distlib six virtualenv pipenv && pip list --outdated'
 # alias runpy='pipenv run python3'
 
+alias my_vault="env |grep GITHUB |grep VAULT |awk -F'=' '{print $2}'"
+
 # alias cat lolcat
 
 # alias mfa_me='aws sts get-session-token --serial-number arn:aws:iam::${AWS_ACCOUNT_ID}:mfa/${AWS_USER_NAME} --token-code'
