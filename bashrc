@@ -31,12 +31,4 @@ export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
 . $HOME/.g_funcs
 
-t-init () {
-  if [ -f backend-config ]; then
-    terraform init -backend-config=backend-config "$@"
-  else
-    terraform init "$@"
-  fi
-}
-export -f t-init
-
+. $HOME/.t_funcs
