@@ -11,8 +11,20 @@ export -f g-act
 function g-zone { gcloud compute --quiet instances list --format 'csv[no-heading](zone)' --filter "name=('$1')" ; }
 export -f g-zone
 
+# machine internal IP
+function g-ip { gcloud compute --quiet instances describe "$@" --format 'get(networkInterfaces[0].networkIP)' ; }
+export -f g-ip
+
 # export zone shortcut
-function zone-me { CLOUDSDK_COMPUTE_ZONE="$(g-zone "$1")" ; export CLOUDSDK_COMPUTE_ZONE ; echo "$CLOUDSDK_COMPUTE_ZONE" ; }
+function zone-me {
+  CLOUDSDK_COMPUTE_ZONE="$(g-zone "$1")"
+  if [ -z "$CLOUD_SDK_COMPUTE_ZONE" ]; then
+    >&2 echo "NOT FOUND: Could not find a zone for the machine: $1"
+    return 1
+  fi
+  export CLOUDSDK_COMPUTE_ZONE
+  echo "$CLOUDSDK_COMPUTE_ZONE"
+}
 export -f zone-me
 
 # ssh/scp
@@ -26,24 +38,26 @@ export -f g-scp
 function g-chef {
   local machine="$1"
   shift
-
-  g-ssh "$machine" --command "sudo apply-chef $@" ; 
+  if [ $# -gt 0 ] && [[ "$1" =~ (c|-c|--cookbooks) ]]; then
+    g-ssh "$machine" --command "sudo cookbooks $2 ; sudo apply-chef"
+  else
+    g-ssh "$machine" --command "sudo apply-chef $@" ; 
+  fi
 }
 export -f g-chef
 
 # iap for vault
 function g-vault {
-  echo "VAULT_ADDR=https://iap.banno-internal.com:8200"
 
   local machine="$1"
-  shift
+  local port="${2:8200}"
 
+  echo "VAULT_ADDR=https://iap.banno-internal.com:$port"
   gcloud compute --quiet start-iap-tunnel "$machine" 443 \
-   --local-host-port=iap.banno-internal.com:8200
+   --local-host-port=iap.banno-internal.com:$port
 }
 export -f g-vault
 
 # GKE
 function gke-creds { gcloud container clusters get-credentials gke ; }
 export -f gke-creds
-
