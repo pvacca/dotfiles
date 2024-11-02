@@ -18,7 +18,7 @@ alias dovs='docker volume ls'
 
 alias brewup='brew update && brew outdated'
 
-alias pipup='python -m pip install -U pip && pip install -U setuptools wheel distlib six virtualenv pipenv && pip list --outdated'
+alias pipup='python -m pip install -U pip && pip install -U setuptools wheel distlib six platformdirs virtualenv pipenv certifi filelock && pip list --outdated'
 # alias runpy='pipenv run python3'
 
 # alias cat lolcat

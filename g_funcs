@@ -1,50 +1,58 @@
+#  Functions to help with GCP cli
+#
+# > cd $HOME && ln -s /path/to/environments/scripts/infra/g_funcs .g_funcs
+# > echo '. $HOME/.g_funcs' >> ~/.zshrc
+
+load_cmd="autoload"
+if [ $(basename "$SHELL") = "bash" ]; then
+  load_cmd="export -f"
+fi
+
+function g-auth { gcloud auth application-default login ; }
+$load_cmd g-auth
+
 function g-up { gcloud components update ; }
-export -f g-up
+$load_cmd g-up
 
 function g-list { gcloud config configurations list ; }
-export -f g-list
+$load_cmd g-list
 
 function g-act { gcloud config configurations activate "$1" ; }
-export -f g-act
+$load_cmd g-act
 
 # zone from machine name
-function g-zone { gcloud compute --quiet instances list --format 'csv[no-heading](zone)' --filter "name=('$1')" ; }
-export -f g-zone
+function g-zone {
+  gcloud compute --quiet instances list \
+   --format 'csv[no-heading](zone)' \
+   --filter "name=('$1')" ; 
+}
+$load_cmd g-zone
 
 # machine internal IP
-function g-ip { gcloud compute --quiet instances describe "$@" --format 'get(networkInterfaces[0].networkIP)' ; }
-export -f g-ip
+function g-ip {
+  gcloud compute --quiet instances describe "$@" \
+   --format 'get(networkInterfaces[0].networkIP)' ;
+}
+$load_cmd g-ip
 
 # export zone shortcut
 function zone-me {
   CLOUDSDK_COMPUTE_ZONE="$(g-zone "$1")"
-  if [ -z "$CLOUD_SDK_COMPUTE_ZONE" ]; then
+  if [ -z "$CLOUDSDK_COMPUTE_ZONE" ]; then
     >&2 echo "NOT FOUND: Could not find a zone for the machine: $1"
     return 1
   fi
   export CLOUDSDK_COMPUTE_ZONE
   echo "$CLOUDSDK_COMPUTE_ZONE"
 }
-export -f zone-me
+$load_cmd zone-me
 
 # ssh/scp
 function g-ssh { gcloud compute --quiet ssh "$@" --tunnel-through-iap ; }
-export -f g-ssh
+$load_cmd g-ssh
 
 function g-scp { gcloud compute --quiet scp --compress "$@" --tunnel-through-iap ; }
-export -f g-scp
-
-# apply chef
-function g-chef {
-  local machine="$1"
-  shift
-  if [ $# -gt 0 ] && [[ "$1" =~ (c|-c|--cookbooks) ]]; then
-    g-ssh "$machine" --command "sudo cookbooks $2 ; sudo apply-chef"
-  else
-    g-ssh "$machine" --command "sudo apply-chef $@" ; 
-  fi
-}
-export -f g-chef
+$load_cmd g-scp
 
 # iap for vault
 function g-vault {
@@ -56,8 +64,8 @@ function g-vault {
   gcloud compute --quiet start-iap-tunnel "$machine" 443 \
    --local-host-port=iap.banno-internal.com:$port
 }
-export -f g-vault
+$load_cmd g-vault
 
 # GKE
 function gke-creds { gcloud container clusters get-credentials gke ; }
-export -f gke-creds
+$load_cmd gke-creds
